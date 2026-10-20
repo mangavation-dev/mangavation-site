@@ -1,4 +1,16 @@
 baseURL = 'https://example.org/'
-locale = 'en-us'
+defaultContentLanguage = 'en'
+locale = 'en'
 title = 'MangaVation'
-theme = 'ananke'
+theme = 'dream'
+
+[params]
+avatar = "logo/logo.png"
+lightTheme = "emerald"
+darkTheme = "forest"
+author = "MangaVation"
+description = "Research-driven manga analysis."
+headerTitle = "MangaVation"
+footerBottomText = "Made by Vationary LLC."
+motto = "Win Your Zone Everyday"
+siteStartYear = 2026
