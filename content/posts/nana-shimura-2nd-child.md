@@ -1,6 +1,6 @@
 ---
-title: 'Nana Shimura 2nd Child'
-description: "I'm digging into the secret origins of Inko Midoriya and why Deku and Shigaraki are actually cousins."
+title: 'Nana Shimura’s Secret Child: The Inko Midoriya Theory'
+description: "Is Inko Midoriya secretly Nana Shimura’s daughter? A My Hero Academia theory using timelines, Quirks, and names that would make Deku and Shigaraki cousins."
 date: '2020-03-11T17:11:51-04:00'
 draft: false
 categories: ["My Hero Academia" ]

@@ -12,9 +12,15 @@
     <h1 class="post__title book__title">{{ .Title }}</h1>
     {{- with .Description }}<p class="post__subtitle">{{ . }}</p>{{ end }}
   </div>
-  <div class="post__meta">
-    <span>{{ .Date.Format (.Site.Params.DateFormat | default "January 2, 2006") }}</span>
-    <span>{{ $status }}</span>
+    <div class="post__meta">
+    {{- if $reading }}
+      <span>Reading
+        {{- with $m.currentVolume }} · Volume {{ . }}{{ with $m.totalVolumes }} of {{ . }}{{ end }}{{ end -}}
+        {{- with $m.currentChapter }} · Chapter {{ . }}{{ end -}}
+      </span>
+    {{- else }}
+      <span>{{ $status }}</span>
+    {{- end }}
   </div>
 </header>
 
@@ -32,10 +38,14 @@
   <div class="book__detail-col">
     <span class="book__badge {{ $statusClass }}">{{ if $reading }}{{ i18n "bookReadingNow" }}{{ else }}{{ $status }}{{ end }}</span>
 
-    {{- if $m.rating }}
+          {{- $rated := gt (float ($m.rating | default 0)) 0 }}
+    {{- if $rated }}
       <div class="book__rating" aria-label="{{ i18n "bookRated" (dict "rating" $m.rating) }}">
         {{- partial "stars.html" $m.rating -}}
       </div>
+      {{- if $reading }}<p class="book__rating-note">Provisional rating: I'm still reading, so this may change.</p>{{ end }}
+    {{- else if $reading }}
+      <p class="book__rating-note">Not rated yet: I haven't caught up to the series.</p>
     {{- end }}
 
     <dl class="book__facts">
@@ -44,7 +54,7 @@
       {{- with $m.published }}<div><dt>{{ i18n "bookPublished" }}</dt><dd>{{ . }}</dd></div>{{ end }}
       {{- with $m.pages }}<div><dt>{{ i18n "bookPages" }}</dt><dd>{{ . }}</dd></div>{{ end }}
       {{- with $m.isbn }}<div><dt>{{ i18n "bookIsbn" }}</dt><dd>{{ . }}</dd></div>{{ end }}
-      <div><dt>{{ i18n "bookStatus" }}</dt><dd>{{ $status }}</dd></div>
+            {{- with $m.totalVolumes }}<div><dt>Volumes</dt><dd>{{ . }}{{ if $m.ongoing }} (ongoing){{ end }}</dd></div>{{ end }}
       {{- with $m.genre }}<div><dt>{{ i18n "bookGenre" }}</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
     </dl>
 

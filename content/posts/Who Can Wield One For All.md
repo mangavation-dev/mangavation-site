@@ -1,6 +1,6 @@
 ---
-Description:
-Title: Who Can Wield One For All?
+Title: One For All Doesn’t Kill Quirk Users—Their Will Does?
+Description: "Did One For All kill its 4th user, Shinomori, or did his weak will? A My Hero Academia theory on why Lemillion, Todoroki, and Bakugo could wield the One For All quirk."
 Draft: false
 date: 2025-06-10
 categories: ["My Hero Academia"]

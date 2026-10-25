@@ -8,6 +8,10 @@ bookMeta:
     Rating: 5
     status: "Completed"
     genre: ["Super Hero", "Shonen", "Action", "Sci-Fi"]
+    currentVolume: 42
+    currentChapter: 42
+    totalVolumes: 42
+    ongoing: false
     coverImage: "image/covers/mha-vol-1.jpg"
 postTag: "my-hero-academia"
 ---

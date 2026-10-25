@@ -1,6 +1,6 @@
 ---
-Description:
-Title: One Page of the Kingdom Manga Was Enough
+Title: One Page Was All It Took for Kingdom to Capture My Heart
+Description: "A first-impression analysis of Kingdom chapter 1: how one page of Shin and Piao’s final duel sets up friendship, loss, and a dream worth chasing."
 Draft: false
 date: 2026-01-04
 categories: ["Kingdom"]

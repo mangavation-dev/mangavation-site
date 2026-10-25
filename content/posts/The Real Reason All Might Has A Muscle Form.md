@@ -1,6 +1,6 @@
 ---
-Description:
 Title: The Real Reason All Might Has A Muscle Form
+Description: Is All Might’s muscle form a Quirk? This My Hero Academia theory argues his body surpassed the Quirk Singularity, with Shigaraki as proof.
 Draft: false
 Date: 2023-03-12
 Categories: ["My Hero Academia"]
