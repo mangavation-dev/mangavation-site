@@ -9,8 +9,9 @@ cover:
   image: image/post-2-cover.webp
 ---
 {{<youtube Tuo1R8aoZdc>}}
-## Intro
 
+## Intro
+![kingdom Ch. 1, Pg. 34](image/kingdom-ch1-pg34.png)
 This may look like a random page from the manga Kingdom, but to me, this page tells a story, one of friendship, commitment, and change. Two friends facing each other for what may be the final time.
 
 ## Shin and Piao
