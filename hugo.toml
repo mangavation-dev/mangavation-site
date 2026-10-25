@@ -1,4 +1,72 @@
 baseURL = 'https://example.org/'
-locale = 'en-us'
+defaultContentLanguage = 'en'
+locale = 'en'
 title = 'MangaVation'
-theme = 'ananke'
+theme = 'nuno'
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+  [markup.highlight]
+    noClasses = false
+
+[related]
+  threshold = 80
+  includeNewer = true
+  toLower = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 60
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
+[menus]
+  [[menus.main]]
+    name = "Archive"
+    pageRef = "/posts"
+    weight = 10
+  [[menus.main]]
+    name = "Manga"
+    pageRef = "/books"
+    weight = 20
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    identifier = "about"
+    weight = 25
+
+[params]
+  author = "Wyze"
+  description = "Research-driven manga analysis."
+  brand = "MangaVation"
+  tagline = "Win Your Zone Everyday"
+  copyright = "Vationary LLC."
+  mainSections = ["posts"]
+  # accent = "#e8b04b"   # mustard (default); copper #d97b4f, green #0f766e, sky #8fb8d6
+  # ground = "brown"     # brown | green
+  portrait = 'image/portrait.png'
+
+[[params.socialIcons]]
+  name = "youtube"
+  url = "https://www.youtube.com/@mangavation"
+
+[[params.socialIcons]]
+  name = "x"
+  url = "https://x.com/mangavation"
+
+[[params.socialIcons]]
+  name = "instagram"
+  url = "https://instagram.com/vationary"
+
+  [[params.socialIcons]]
+  name = "email"
+  url = "mailto:mangavation@gmail.com"
+

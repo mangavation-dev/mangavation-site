@@ -1,0 +1,28 @@
+.book__rating-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.25rem 0 0;
+}
+<style>
+/* Completed / Read: green. Dark mode uses dark text on light green. */
+.book__badge.status--completed, .book__badge.status--read,
+.book-card__badge.status--completed, .book-card__badge.status--read {
+  background: #7fc79a;
+  color: #1b2823;
+}
+/* Light mode needs a darker green so the light text stays readable. */
+html[data-theme='light'] .book__badge.status--completed,
+html[data-theme='light'] .book__badge.status--read,
+html[data-theme='light'] .book-card__badge.status--completed,
+html[data-theme='light'] .book-card__badge.status--read {
+  background: #2f7d4f;
+  color: #faf6ef;
+}
+/* Not Started: outlined, muted. Solid background so it stays readable over a cover. */
+.book__badge.status--not-started,
+.book-card__badge.status--not-started {
+  background: var(--bg);
+  color: var(--muted);
+  box-shadow: inset 0 0 0 1.5px var(--muted);
+}
+</style>

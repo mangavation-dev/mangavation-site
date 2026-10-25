@@ -1,0 +1,111 @@
+{{ define "wrapclass" }}wrap--post{{ end }}
+{{ define "main" }}
+{{ partial "book-status-css.html" . }}
+{{- $m := .Params.bookMeta | default dict -}}
+{{- $status := $m.status | default "Completed" -}}
+{{- $reading := eq $status "Reading" -}}
+{{- $statusClass := printf "status--%s" (urlize $status) -}}
+
+<header class="post__header">
+  <div class="post__headline">
+    {{- with $m.author }}<span class="kicker kicker--accent">{{ . }}</span>{{ end }}
+    <h1 class="post__title book__title">{{ .Title }}</h1>
+    {{- with .Description }}<p class="post__subtitle">{{ . }}</p>{{ end }}
+  </div>
+    <div class="post__meta">
+    {{- if $reading }}
+      <span>Reading
+        {{- with $m.currentVolume }} · Volume {{ . }}{{ with $m.totalVolumes }} of {{ . }}{{ end }}{{ end -}}
+        {{- with $m.currentChapter }} · Chapter {{ . }}{{ end -}}
+      </span>
+    {{- else }}
+      <span>{{ $status }}</span>
+    {{- end }}
+  </div>
+</header>
+
+{{- /* Cover and details sit side by side at the top so the proportions hold
+       however short the notes are; the notes then run full width below. */ -}}
+<section class="book__head">
+  <div class="book__cover-col">
+    {{- with $m.coverImage }}
+      {{ partial "image.html" (dict "src" . "alt" (i18n "bookCoverAlt" (dict "title" $.Title)) "class" "book__cover" "loading" "eager") }}
+    {{- else }}
+      <div class="book__cover book__cover--blank" role="presentation"></div>
+    {{- end }}
+  </div>
+
+  <div class="book__detail-col">
+    <span class="book__badge {{ $statusClass }}">{{ if $reading }}{{ i18n "bookReadingNow" }}{{ else }}{{ $status }}{{ end }}</span>
+
+          {{- $rated := gt (float ($m.rating | default 0)) 0 }}
+    {{- if $rated }}
+      <div class="book__rating" aria-label="{{ i18n "bookRated" (dict "rating" $m.rating) }}">
+        {{- partial "stars.html" $m.rating -}}
+      </div>
+      {{- if $reading }}<p class="book__rating-note">Provisional rating: I'm still reading, so this may change.</p>{{ end }}
+    {{- else if $reading }}
+      <p class="book__rating-note">Not rated yet: I haven't caught up to the series.</p>
+    {{- end }}
+
+    <dl class="book__facts">
+      {{- with $m.author }}<div><dt>{{ i18n "bookAuthor" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with $m.publisher }}<div><dt>{{ i18n "bookPublisher" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with $m.published }}<div><dt>{{ i18n "bookPublished" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with $m.pages }}<div><dt>{{ i18n "bookPages" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with $m.isbn }}<div><dt>{{ i18n "bookIsbn" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+            {{- with $m.totalVolumes }}<div><dt>Volumes</dt><dd>{{ . }}{{ if $m.ongoing }} (ongoing){{ end }}</dd></div>{{ end }}
+      {{- with $m.genre }}<div><dt>{{ i18n "bookGenre" }}</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
+    </dl>
+
+    {{- with $m.goodreadsUrl }}
+      <a class="btn btn--ghost book__link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+        {{ i18n "bookViewOnGoodreads" }} <span aria-hidden="true">→</span>
+      </a>
+    {{- end }}
+  </div>
+</section>
+
+{{- with .Content }}
+  <article class="prose book__notes" id="main">{{ . }}</article>
+{{- end }}
+
+{{- with .Params.postTag }}
+  {{- $posts := where (where $.Site.RegularPages "Section" "in" $.Site.MainSections) "Params.tags" "intersect" (slice .) }}
+  {{- with $posts }}
+  <section class="book__posts">
+    <span class="kicker kicker--accent">Posts about {{ $.Title }}</span>
+    <div class="rows">
+      {{- range .ByDate.Reverse }}
+      <a class="row" href="{{ .RelPermalink }}">
+        <span class="row__text"><span class="row__title">{{ .Title }}</span></span>
+        <span class="row__meta">{{ .Date.Format "Jan 2, 2006" }}</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+{{- end }}
+
+{{- /* Stay inside the section: .Prev/.Next span every regular page, so a book
+       could otherwise link to a blog post. NextInSection walks towards newer
+       (the opposite direction to .Next/.Prev — verified against real dates). */ -}}
+{{- $older := .PrevInSection -}}
+{{- $newer := .NextInSection -}}
+{{- if or $older $newer }}
+<nav class="post__nav">
+  {{- with $older }}
+    <a class="post__nav-link" href="{{ .RelPermalink }}">
+      <span class="kicker">{{ i18n "older" }}</span>
+      <span class="post__nav-title">{{ .Title }}</span>
+    </a>
+  {{- end }}
+  {{- with $newer }}
+    <a class="post__nav-link post__nav-link--next" href="{{ .RelPermalink }}">
+      <span class="kicker">{{ i18n "newer" }}</span>
+      <span class="post__nav-title">{{ .Title }}</span>
+    </a>
+  {{- end }}
+</nav>
+{{- end }}
+{{ end }}
