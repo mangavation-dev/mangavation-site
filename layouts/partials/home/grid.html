@@ -1,0 +1,41 @@
+{{- $visible := .visible | default (len .recent) -}}
+
+<style>
+.card--cover { position: relative; overflow: hidden; isolation: isolate; }
+.card--cover::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--cover);
+  background-size: cover; background-position: right center;
+  opacity: .35;
+  -webkit-mask-image: linear-gradient(to left, #000 10%, transparent 90%);
+  mask-image: linear-gradient(to left, #000 10%, transparent 90%);
+  transition: opacity .2s;
+}
+.card--cover:hover::before { opacity: .5; }
+</style>
+
+<div class="cards">
+  {{- range $i, $p := .recent }}
+    {{- $cover := "" -}}
+    {{- $src := "" -}}
+    {{- with $p.Params.cover -}}
+      {{- if reflect.IsMap . }}{{ $src = .image | default "" }}{{ end -}}
+    {{- end -}}
+    {{- with $src -}}
+      {{- with resources.Get . -}}
+        {{- $cover = (.Resize "900x webp q80").RelPermalink -}}
+      {{- else -}}
+        {{- warnf "cover image not found in assets/: %s" $src -}}
+      {{- end -}}
+    {{- end }}
+    <a class="card{{ if $cover }} card--cover{{ end }}" href="{{ $p.RelPermalink }}"{{ with $cover }} style="{{ printf "--cover:url('%s')" . | safeCSS }}"{{ end }}{{ if ge $i $visible }} data-nuno-extra{{ end }}>
+      <span class="card__meta">
+        <span class="card__num">{{ printf "%02d" (add $i 1) }}</span>
+        <span>{{ $p.Date.Format "Jan 2, 2006" }}{{ if $p.ReadingTime }}<span class="nuno-mobile-mins"> · {{ i18n "minutes" (dict "count" $p.ReadingTime) }}</span>{{ end }}</span>
+      </span>
+      <span class="card__title">{{ $p.Title }}</span>
+      {{- with partial "excerpt.html" $p }}<span class="card__excerpt">{{ . }}</span>{{ end }}
+      <span class="card__read">{{ i18n "minutesRead" (dict "count" $p.ReadingTime) }}</span>
+    </a>
+  {{- end }}
+</div>

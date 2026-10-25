@@ -1,5 +1,0 @@
-socials = [
-  { href = "https://www.youtube.com/@mangavation", target = "_blank", icon = "logo-youtube", title = "YouTube" },
-  { href = "https://x.com/mangavation", target = "_blank", icon = "logo-x", title = "X" },
-  { href = "https://instagram.com/vationary", target = "_blank", icon = "logo-instagram", title = "Instagram" },
-]
